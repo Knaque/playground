@@ -4,7 +4,8 @@ import csv
 from random import randint, uniform
 
 
-# Create lists, "dataset" will contain more lists inside
+# Create lists. "dataset" will contain more lists inside
+headers = ["Gender", "Age", "Income", "Education"]
 dataset = []
 low_skew = []
 high_skew = []
@@ -15,8 +16,6 @@ for x in range(0, 175):
     low_skew.append(round(uniform(3000.01, 58500.99), 2))
 for x in range(0, 75):
     low_skew.append(round(uniform(58500.99, 120000.99), 2))
-
-
 # Generate high skew
 for x in range(0, 75):
     high_skew.append(randint(1, 2))
@@ -44,6 +43,9 @@ for x in range(0, 250):
 with open('dataset.csv', 'wt') as f:
     # Define csv_writer
     csv_writer = csv.writer(f)
+
+    # Write headers
+    csv_writer.writerow(headers)
 
     # Write dataset
     csv_writer.writerows(dataset)

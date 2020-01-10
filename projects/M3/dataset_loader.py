@@ -13,7 +13,7 @@ education = []
 # Open dataset.csv
 with open("dataset.csv", "r") as f:
     csv_reader = csv.reader(f)
-
+    next(csv_reader)
     for lines in csv_reader:
         gender.append(int(lines[0]))
         age.append(int(lines[1]))

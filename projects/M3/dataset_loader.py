@@ -15,10 +15,10 @@ with open("dataset.csv", "r") as f:
     csv_reader = csv.reader(f)
     next(csv_reader)
     for lines in csv_reader:
-        gender.append(int(lines[0]))
-        age.append(int(lines[1]))
+        gender.append(float(lines[0]))
+        age.append(float(lines[1]))
         income.append(float(lines[2]))
-        education.append(int(lines[3]))
+        education.append(float(lines[3]))
 
 
 # Sort lists

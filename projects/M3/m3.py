@@ -1,6 +1,7 @@
 """Find the mean, median and mode of a list of random numbers."""
 
 # ============================= Import modules ==============================
+import math
 import dataset_loader as d
 # ===========================================================================
 
@@ -13,64 +14,7 @@ generate_new_data = False
 
 
 # ============================ Define functions =============================
-def int_calc(list):
-    """Contains all the math and IO for integer values."""
-    # ===== Perform calculations =====
-    # Find lowest value in list
-    lowest_value = list[0]
-    # Find highest value in list
-    highest_value = list[len(list)-1]
-
-    # Calculate mean
-    mean = 0
-    for i in list:
-        mean = mean + i
-    mean = mean / len(list)
-
-    # Calculate median
-    median = 0
-    if (len(list) % 2) == 0:
-        median = (list[int(len(list)/2-1)]+list[int(len(list)/2)])/2
-    else:
-        median = list[int(len(list)/2-0.5)]
-
-    # Calculate mode
-    occurences = []
-    for x in range(0, highest_value + 1):
-        occurences.append(0)
-    for i in list:
-        occurences[i] = occurences[i] + 1
-    most_occurences = 0
-    for i in occurences:
-        if i > most_occurences:
-            most_occurences = i
-    mode = ""
-    counter = 0
-    for i in occurences:
-        if i == most_occurences and mode == "":
-            mode = str(counter)
-        elif i == most_occurences:
-            mode = mode + ", " + str(counter)
-        counter += 1
-
-    # ===== Output results =====
-    if output_list_info is True:
-        print("Dataset size: " + str(len(list)))
-        print("Lowest value: " + str(lowest_value))
-        print("Highest value: " + str(highest_value))
-        print("")
-
-    if output_list_contents is True:
-        print("Contents of list:")
-        print(list)
-        print("")
-
-    print("Mean: " + str(mean))
-    print("Median: " + str(median))
-    print("Mode: " + mode)
-
-
-def float_calc(list):
+def main(list):
     """Contains all the math and IO for float values."""
     # ===== Perform calculations =====
     # Find lowest value in list
@@ -117,6 +61,10 @@ def float_calc(list):
             mode = mode + ", " + str(all_numbers[counter])
         counter += 1
 
+    # Calculate standard deviation
+    var = sum(pow(x-mean, 2) for x in list) / len(list)  # variance
+    std_dev = math.sqrt(var)  # standard deviation
+
     # ===== Output results =====
     if output_list_info is True:
         print("Dataset size: " + str(len(list)))
@@ -132,6 +80,7 @@ def float_calc(list):
     print("Mean: " + str(mean))
     print("Median: " + str(median))
     print("Mode: " + mode)
+    print("STD Dev.: " + str(std_dev))
 # ===========================================================================
 
 
@@ -146,25 +95,25 @@ if generate_new_data is True:
 print("")
 
 print("====================== Gender =====================")
-int_calc(d.gender)
+main(d.gender)
 
 print("")
 print("")
 
 print("======================= Age =======================")
-int_calc(d.age)
+main(d.age)
 
 print("")
 print("")
 
 print("===================== Income ======================")
-float_calc(d.income)
+main(d.income)
 
 print("")
 print("")
 
 print("==================== Education ====================")
-int_calc(d.education)
+main(d.education)
 
 print("")
 # ===========================================================================

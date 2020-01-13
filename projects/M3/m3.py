@@ -80,7 +80,7 @@ def main(list):
     print("Mean: " + str(mean))
     print("Median: " + str(median))
     print("Mode: " + mode)
-    print("STD Dev.: " + str(std_dev))
+    print("STD Dev: " + str(std_dev))
 # ===========================================================================
 
 

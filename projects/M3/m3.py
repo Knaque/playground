@@ -62,7 +62,8 @@ def main(list):
         counter += 1
 
     # Calculate standard deviation
-    std_dev = math.sqrt(sum(pow(x-mean, 2) for x in list) / len(list))
+    variance = sum(pow(x-mean, 2) for x in list) / len(list)
+    std_dev = math.sqrt(variance)
 
     # ===== Output results =====
     if output_list_info is True:
@@ -79,6 +80,7 @@ def main(list):
     print("Mean: " + str(mean))
     print("Median: " + str(median))
     print("Mode: " + mode)
+    print("Variance: " + str(variance))
     print("Std. Dev.: " + str(std_dev))
 # ===========================================================================
 

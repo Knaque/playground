@@ -3,6 +3,7 @@
 # ============================= Import modules ==============================
 import math
 import dataset_loader as d
+import matplotlib.pyplot as plot
 # ===========================================================================
 
 
@@ -10,10 +11,12 @@ import dataset_loader as d
 output_list_info = True
 output_list_contents = False
 generate_new_data = False
+plot_x = d.income_raw
+plot_y = d.education_raw
 # ===========================================================================
 
 
-# ============================ Define functions =============================
+# ============================= Define function =============================
 def main(list):
     """Contains all the math and IO for float values."""
     # ===== Perform calculations =====
@@ -117,4 +120,10 @@ print("==================== Education ====================")
 main(d.education)
 
 print("")
+# ===========================================================================
+
+
+# ======================== Generate and display plot ========================
+plot.scatter(plot_x, plot_y)
+plot.show()
 # ===========================================================================

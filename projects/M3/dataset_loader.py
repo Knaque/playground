@@ -21,7 +21,7 @@ with open("dataset.csv", "r") as f:
         education_raw.append(float(lines[3]))
 
 
-# Sort lists
+# Create sorted lists
 gender = sorted(gender_raw)
 age = sorted(age_raw)
 income = sorted(income_raw)

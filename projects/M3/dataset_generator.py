@@ -1,7 +1,7 @@
 """Generates a .csv file with a variety of data for the M3 project."""
 
 import csv
-from random import randint, uniform
+from random import randint, uniform, shuffle
 
 
 # Create lists. "dataset" will contain more lists inside
@@ -21,6 +21,9 @@ for x in range(0, 75):
     high_skew.append(randint(1, 2))
 for x in range(0, 175):
     high_skew.append(randint(3, 4))
+
+shuffle(low_skew)
+shuffle(high_skew)
 
 
 # XXX: x in range(0, x) = # of rows

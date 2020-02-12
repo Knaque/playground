@@ -1,0 +1,8 @@
+# Name of the pack (folder) you're using as input.
+input_pack = 'Default'
+
+# Should the input pack be overwritten (True) or a new folder made (False)?
+overwrite_input = False
+
+# Name of the pack (folder) to create. Ignored if overwrite_input = True
+output_pack = 'Deepfried'

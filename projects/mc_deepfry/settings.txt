@@ -1,8 +1,12 @@
 # Name of the pack (folder) you're using as input.
 input_pack = 'Default'
 
-# Should the input pack be overwritten (True) or a new folder made (False)?
-overwrite_input = False
+# Should a new pack be created? If false, the input pack will be overwritten
+new_pack = True
 
-# Name of the pack (folder) to create. Ignored if overwrite_input = True
-output_pack = 'Deepfried'
+# Name of the pack (folder) to create. Ignored if new_pack = False
+new_pack_name = 'Deepfried'
+
+# NOTE: This text file is run as Python code by the script, so I claim no
+# responsibility for the outcome if you attempt to modify this file with
+# new code or input invalid info.

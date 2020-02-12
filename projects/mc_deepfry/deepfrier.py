@@ -5,7 +5,11 @@ try:
 except ImportError:
     print("Missing required module 'Pillow'")
     print("python3.7 -m pip install Pillow")
+
 import os
+
+import time
+start_time = time.time()
 
 
 # ============================= Load settings.txt =============================
@@ -175,8 +179,14 @@ for subdir in subdirs:
             img = Image.open(input_pack + textures + subdir + file)
             img = img.convert("RGBA")
             enh = ImageEnhance.Color(img)
-            enh.enhance(255).save(new_pack_name + textures + subdir + file)
+            if new_pack is True:
+                enh.enhance(255).save(new_pack_name + textures + subdir + file)
+            else:
+                enh.enhance(255).save(input_pack + textures + subdir + file)
         except IOError:
             pass
 
-print("All done!")
+end_time = time.time()
+duration = end_time - start_time
+duration = format(duration, ".2f")
+print(f"All done! Finished in {duration} secs.")

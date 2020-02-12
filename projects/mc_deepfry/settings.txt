@@ -7,6 +7,8 @@ new_pack = True
 # Name of the pack (folder) to create. Ignored if new_pack = False
 new_pack_name = 'Deepfried'
 
-# NOTE: This text file is run as Python code by the script, so I claim no
-# responsibility for the outcome if you attempt to modify this file with
-# new code or input invalid info.
+# NOTE: This text file is run as Python code by the script, so be careful with
+# what you write in here. There are plenty of checks to make sure that the
+# three settings listed above are correct, but there's no such thing to ensure
+# you don't write additional code. Only add new code if you fully understand
+# what you're doing.

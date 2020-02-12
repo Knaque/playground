@@ -8,6 +8,8 @@ except ImportError:
 
 import os
 
+from random import choice
+
 import time
 start_time = time.time()
 
@@ -25,9 +27,11 @@ new_pack = True
 # Name of the pack (folder) to create. Ignored if new_pack = False
 new_pack_name = 'Deepfried'
 
-# NOTE: This text file is run as Python code by the script, so I claim no
-# responsibility for the outcome if you attempt to modify this file with
-# new code or input invalid info."""
+# NOTE: This text file is run as Python code by the script, so be careful with
+# what you write in here. There are plenty of checks to make sure that the
+# three settings listed above are correct, but there's no such thing to ensure
+# you don't write additional code. Only add new code if you fully understand
+# what you're doing."""
 
 # Create empty vars to avoid linting errors & check existence
 input_pack = None
@@ -173,20 +177,44 @@ if new_pack is True:
 # ========================== Do the image processing ==========================
 print("Creating new textures...")
 
+all_blocks = []
+
 for subdir in subdirs:
-    for file in os.listdir(input_pack + textures + subdir):
-        try:
-            img = Image.open(input_pack + textures + subdir + file)
-            img = img.convert("RGBA")
-            enh = ImageEnhance.Color(img)
-            if new_pack is True:
-                enh.enhance(255).save(new_pack_name + textures + subdir + file)
-            else:
-                enh.enhance(255).save(input_pack + textures + subdir + file)
-        except IOError:
-            pass
+    current_dir = textures + subdir
+    try:
+        for file in os.listdir(input_pack + current_dir):
+            if subdir == "block/":
+                if file.endswith('.png'):
+                    all_blocks.append(file)
+            try:
+                img = Image.open(input_pack + current_dir + file)
+                img = img.convert("RGBA")
+                enh = ImageEnhance.Color(img)
+                if new_pack is True:
+                    enh.enhance(255).save(new_pack_name + current_dir + file)
+                else:
+                    enh.enhance(255).save(input_pack + current_dir + file)
+            except IOError:
+                pass
+    except FileNotFoundError:
+        print("ERROR: Either the pack specified in settings.txt doesn't",
+              "exist, or some folders are missing.")
+        print("Check for typo in the input_pack setting. (Case sensitive!)")
+        print("The script will now abort.")
+        quit()
+
+if new_pack is True:
+    pack_icon = choice(all_blocks)
+    img = Image.open(new_pack_name + textures + "block/" + pack_icon)
+    img.resize((128, 128), resample=0).save(new_pack_name + "/pack.png")
+else:
+    img = Image.open(input_pack + "/pack.png")
+    img = img.convert("RGBA")
+    enh = ImageEnhance.Color(img)
+    enh.enhance(255).save(input_pack + "/pack.png")
 
 end_time = time.time()
 duration = end_time - start_time
 duration = format(duration, ".2f")
 print(f"All done! Finished in {duration} secs.")
+# ==================================== END ====================================

@@ -1,18 +1,75 @@
 """Find the mean, median and mode of a list of random numbers."""
 
 # ============================= Import modules ==============================
+from sys import argv
 import math
 import dataset_loader as d
 import matplotlib.pyplot as plot
 # ===========================================================================
 
 
-# ================================= Options =================================
-output_list_info = True
-output_list_contents = False
-generate_new_data = False
-plot_x = d.income_raw
-plot_y = d.education_raw
+# ================================== Args ===================================
+if "-h" in argv:
+    print("Available arguments are:")
+    print("""
+    -i
+        Prints additional info about the list.
+
+    -c
+        Prints the raw contents of the list.
+
+    -g
+        Generates a new dataset on run.
+
+    -p <plot_x> <plot_y>
+        Shows a MatPlotLib chart for the two specified lists.
+
+    -h
+        Prints this help message.""")
+    quit()
+
+output_list_info = True if "-i" in argv else False
+output_list_contents = True if "-c" in argv else False
+generate_new_data = True if "-g" in argv else False
+generate_matplotlib = True if "-p" in argv else False
+
+plot_x = None
+plot_y = None
+if generate_matplotlib is True:
+    for set in range(1, 3):
+        try:
+            if argv[argv.index("-p")+set] in ["gender", "age", "income",
+                                              "education"]:
+                if argv[argv.index("-p")+set] == "gender":
+                    if set == 1:
+                        plot_x = d.gender_raw
+                    else:
+                        plot_y = d.gender_raw
+                elif argv[argv.index("-p")+set] == "age":
+                    if set == 1:
+                        plot_x = d.age_raw
+                    else:
+                        plot_y = d.age_raw
+                elif argv[argv.index("-p")+set] == "income":
+                    if set == 1:
+                        plot_x = d.income_raw
+                    else:
+                        plot_y = d.income_raw
+                elif argv[argv.index("-p")+set] == "education":
+                    if set == 1:
+                        plot_x = d.education_raw
+                    else:
+                        plot_y = d.education_raw
+                else:
+                    print("Something went wrong... Ctrl+F: 7fb7f")
+            else:
+                print(f"'{argv[argv.index('-p')+set]}' is not a valid",
+                      f"argument for '{'plot_x' if set == 1 else 'plot_y'}'")
+                quit()
+        except IndexError:
+            print("Missing required argument",
+                  f"'{'plot_x' if set == 1 else 'plot_y'}'")
+            quit()
 # ===========================================================================
 
 
@@ -90,7 +147,11 @@ def main(list):
 
 # ===================== Generate new data if applicable =====================
 if generate_new_data is True:
-    import dataset_generator as dg
+    try:
+        import dataset_generator as dg
+    except ModuleNotFoundError:
+        print("dataset_generator.py is missing, aborting.")
+        quit()
     dg.lint_check()
 # ===========================================================================
 
@@ -124,6 +185,7 @@ print("")
 
 
 # ======================== Generate and display plot ========================
-plot.scatter(plot_x, plot_y)
-plot.show()
+if generate_matplotlib is True:
+    plot.scatter(plot_x, plot_y)
+    plot.show()
 # ===========================================================================
